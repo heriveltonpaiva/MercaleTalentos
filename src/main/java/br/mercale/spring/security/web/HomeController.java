@@ -1,4 +1,4 @@
-package br.com.mercale.spring.security.web;
+package br.mercale.spring.security.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

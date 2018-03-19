@@ -1,4 +1,4 @@
-package br.com.mercale.spring.security.config;
+package br.mercale.spring.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import br.com.mercale.spring.security.web.LoggingAccessDeniedHandler;
+import br.mercale.spring.security.web.LoggingAccessDeniedHandler;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -17,7 +17,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+    	/**
+    	http.antMatcher("/**").authorizeRequests().anyRequest().hasRole("USER")
+		.and().formLogin().loginPage("/login.jsp")
+		.failureUrl("/login.jsp?error=1").loginProcessingUrl("/login")
+		.permitAll().and().logout()
+		.logoutSuccessUrl("/vaga/index.html");
+    	**/
+    	http
                 .authorizeRequests()
                     .antMatchers(
                             "/",
@@ -26,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             "/img/**",
                             "/webjars/**").permitAll()
                     .antMatchers("/user/**").hasRole("USER")
+                    .antMatchers("/vaga/**").hasRole("USER")
                     .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -40,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                 .exceptionHandling()
-                    .accessDeniedHandler(accessDeniedHandler);
+                    .accessDeniedHandler(accessDeniedHandler); 
     }
 
     @Override
