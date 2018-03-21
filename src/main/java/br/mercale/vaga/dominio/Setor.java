@@ -1,9 +1,22 @@
 package br.mercale.vaga.dominio;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "setor")
 public class Setor {
 
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
 	private String descricao;
+	
+	public Setor() {}
 	
 	public int getId() {
 		return id;
