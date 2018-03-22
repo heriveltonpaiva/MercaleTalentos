@@ -46,11 +46,25 @@ WITH (
 ALTER TABLE ramo
   OWNER TO postgres;
   
+CREATE TABLE unidade_lotacao(
+  id integer NOT NULL,
+  descricao varchar NOT NULL,
+  id_cidade integer NOT NULL,
+  CONSTRAINT unidade_lotacao_pk PRIMARY KEY (id),
+   CONSTRAINT cidade_fk FOREIGN KEY (id_cidade)
+      REFERENCES cidade (id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+INSERT INTO unidade_lotacao VALUES (1, 'Matriz', 1);
+ 
   CREATE TABLE vaga
 (
   id integer NOT NULL,
-  codigo character NOT NULL,
-  descricao character NOT NULL,
+  codigo varchar NOT NULL,
+  descricao varchar NOT NULL,
   salario NUMERIC NOT NULL,
   carga_horaria INTEGER NOT NULL,
   data_inicio timestamp with time zone NOT NULL,
@@ -61,6 +75,8 @@ ALTER TABLE ramo
   id_cargo integer NOT NULL,
   id_setor integer NOT NULL,
   id_etapa integer NOT NULL,
+  id_ramo integer NOT NULL,
+  id_unidade_lotacao integer NOT NULL,
   CONSTRAINT vaga_pk PRIMARY KEY (id),
   CONSTRAINT cargo_fk FOREIGN KEY (id_cargo)
       REFERENCES cargo (id) MATCH FULL
@@ -70,11 +86,20 @@ ALTER TABLE ramo
       ON UPDATE CASCADE ON DELETE SET NULL,
   CONSTRAINT etapa_fk FOREIGN KEY (id_etapa)
       REFERENCES etapa (id) MATCH FULL
+      ON UPDATE CASCADE ON DELETE SET NULL,
+  CONSTRAINT ramo_fk FOREIGN KEY (id_ramo)
+      REFERENCES ramo (id) MATCH FULL
+      ON UPDATE CASCADE ON DELETE SET NULL,
+  CONSTRAINT unidade_lotacao_fk FOREIGN KEY (id_unidade_lotacao)
+      REFERENCES unidade_lotacao (id) MATCH FULL
       ON UPDATE CASCADE ON DELETE SET NULL
 )
 WITH (
   OIDS=FALSE
 );
+
+
+
 
   
   

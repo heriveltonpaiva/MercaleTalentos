@@ -1,10 +1,9 @@
-package br.mercale.geral.dominio;
+package br.mercale.dominio;
 
-public class Cidade {
-
+public class PretensaoSalarial {
+	
 	private int id;
 	private String descricao;
-	private Estado uf;
 	
 	public int getId() {
 		return id;
@@ -18,13 +17,7 @@ public class Cidade {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Estado getUf() {
-		return uf;
-	}
-	public void setUf(Estado uf) {
-		this.uf = uf;
-	}
 	
 	
-	
+
 }

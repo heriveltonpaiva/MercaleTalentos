@@ -1,4 +1,4 @@
-package br.mercale.curriculo.dominio;
+package br.mercale.dominio;
 
 public class Idioma {
 

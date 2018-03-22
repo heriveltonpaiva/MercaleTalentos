@@ -1,4 +1,4 @@
-package br.mercale.vaga.dominio;
+package br.mercale.dominio;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

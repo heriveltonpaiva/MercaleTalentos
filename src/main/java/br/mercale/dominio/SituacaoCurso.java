@@ -1,6 +1,6 @@
-package br.mercale.geral.dominio;
+package br.mercale.dominio;
 
-public class Estado {
+public class SituacaoCurso {
 
 	private int id;
 	private String descricao;

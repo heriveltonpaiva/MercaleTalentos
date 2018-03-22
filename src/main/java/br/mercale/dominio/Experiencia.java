@@ -1,10 +1,6 @@
-package br.mercale.curriculo.dominio;
+package br.mercale.dominio;
 
 import java.util.Date;
-
-import br.mercale.geral.dominio.Cidade;
-import br.mercale.vaga.dominio.Cargo;
-import br.mercale.vaga.dominio.Ramo;
 
 public class Experiencia {
 

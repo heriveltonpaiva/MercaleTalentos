@@ -1,4 +1,4 @@
-package br.mercale.geral.dominio;
+package br.mercale.dominio;
 
 public class Escolaridade {
 

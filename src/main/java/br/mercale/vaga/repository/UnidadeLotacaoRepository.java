@@ -3,9 +3,10 @@ package br.mercale.vaga.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import br.mercale.dominio.Setor;
+import br.mercale.dominio.Cargo;
+import br.mercale.dominio.UnidadeLotacao;
 
 @Repository
-public interface SetorRepository extends CrudRepository<Setor, Long>{
+public interface UnidadeLotacaoRepository extends CrudRepository<UnidadeLotacao, Long>{
 
 }

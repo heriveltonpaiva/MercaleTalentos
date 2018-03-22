@@ -1,4 +1,4 @@
-package br.mercale.vaga.dominio;
+package br.mercale.dominio;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,8 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ramo")
-public class Ramo {
+@Table(name = "etapa")
+public class Etapa {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,7 +16,7 @@ public class Ramo {
 	
 	private String descricao;
 	
-	public Ramo() {
+	public Etapa() {
 	}
 	
 	public int getId() {
@@ -31,5 +31,7 @@ public class Ramo {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
+	
 	
 }

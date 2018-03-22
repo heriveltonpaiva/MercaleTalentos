@@ -1,4 +1,4 @@
-package br.mercale.vaga.dominio;
+package br.mercale.dominio;
 
 import java.util.Date;
 
@@ -52,6 +52,14 @@ public class Vaga {
 	@ManyToOne
 	@JoinColumn(name = "id_etapa")
 	private Etapa etapa;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_ramo")
+	private Ramo ramo;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_unidade_lotacao")
+	private UnidadeLotacao unidadeLotacao;
 	
 	public Vaga() {
 		// TODO Auto-generated constructor stub
@@ -159,6 +167,18 @@ public class Vaga {
 
 	public void setEtapa(Etapa etapa) {
 		this.etapa = etapa;
+	}
+	public Ramo getRamo() {
+		return ramo;
+	}
+	public void setRamo(Ramo ramo) {
+		this.ramo = ramo;
+	}
+	public UnidadeLotacao getUnidadeLotacao() {
+		return unidadeLotacao;
+	}
+	public void setUnidadeLotacao(UnidadeLotacao unidadeLotacao) {
+		this.unidadeLotacao = unidadeLotacao;
 	}
 	
 }

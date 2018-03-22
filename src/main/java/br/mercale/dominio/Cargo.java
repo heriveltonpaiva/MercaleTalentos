@@ -1,4 +1,4 @@
-package br.mercale.vaga.dominio;
+package br.mercale.dominio;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,19 +6,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "etapa")
-public class Etapa {
+import org.hibernate.validator.constraints.NotBlank;
 
+@Entity
+@Table(name = "cargo")
+public class Cargo {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+	@NotBlank(message="Descrição é uma informação obrigatória")
 	private String descricao;
 	
-	public Etapa() {
+	public Cargo() {
 	}
 	
+	public Cargo(String d) {
+		this.descricao = d;
+	}
 	public int getId() {
 		return id;
 	}

@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import br.mercale.vaga.dominio.Cargo;
+import br.mercale.dominio.Cargo;
 import br.mercale.vaga.repository.CargoRepository;
 /** https://memorynotfound.com/spring-boot-spring-security-thymeleaf-form-login-example/ **/
 @SpringBootApplication
 @ComponentScan(value = "br.mercale")
-@EntityScan("br.mercale.vaga.dominio")
+@EntityScan("br.mercale.dominio")
 @EnableJpaRepositories("br.mercale.vaga.repository")
 public class Run {
     public static void main(String[] args) {

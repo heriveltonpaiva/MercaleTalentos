@@ -71,45 +71,31 @@
                                         <th>Data Início</th>
                                         <th>Data Final</th>
                                         <th>Observações</th>
+                                        <th>Data de Cadastro</th>
+                                        <th colspan="2"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="odd gradeX">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">4</td>
-                                        <td class="center">X</td>
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">4</td>
-                                        <td class="center">X</td>
+                                    <tr class="odd gradeX" th:each="vaga : ${vagas}">
+                                        <td th:text="${vaga.codigo}"></td>
+                                        <td th:text="${vaga.descricao}"></td>
+                                        <td th:text="${vaga.id}"></td>
+                                        <td th:text="${vaga.id}"></td>
+                                        <td th:text="${vaga.salario}"></td>
+                                        <td th:text="${vaga.cargaHoraria}"></td>
+                                        <td th:text="${vaga.vagaAberta}"></td>
+                                        <td th:text="${vaga.dataInicio}"></td>
+                                        <td th:text="${vaga.dataFinal}"></td>
+                                        <td th:text="${vaga.observacao}"></td>
+                                        <td th:text="${vaga.dataCadastro}"></td>
+                                        <td>
+			                                <div class="btn-group pull-right">
+			                                    <a class="btn btn-sm btn-primary" th:href="@{/edit/{id}(id=${vaga.id})}" >Editar</a>
+			                                    <a class="delete btn btn-sm btn-danger" th:href="@{/delete/{id}(id=${vaga.id})}">Excluir</a>
+			                               </div>
+			                            </td>
                                     </tr>
-                                    <tr class="even gradeC">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 5.0</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">5</td>
-                                        <td class="center">C</td>
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">4</td>
-                                        <td class="center">X</td>
-                                    </tr>
-                                    <tr class="odd gradeA">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 5.5</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">5.5</td>
-                                        <td class="center">A</td>
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">4</td>
-                                        <td class="center">X</td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>

@@ -1,8 +1,6 @@
-package br.mercale.curriculo.dominio;
+package br.mercale.dominio;
 
 import java.util.List;
-
-import br.mercale.geral.dominio.Pessoa;
 
 public class Curriculo {
 

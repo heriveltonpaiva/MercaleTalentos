@@ -1,7 +1,7 @@
-package br.mercale.curriculo.dominio;
+package br.mercale.dominio;
 
-public class PretensaoSalarial {
-	
+public class Formacao {
+
 	private int id;
 	private String descricao;
 	
@@ -19,5 +19,4 @@ public class PretensaoSalarial {
 	}
 	
 	
-
 }
