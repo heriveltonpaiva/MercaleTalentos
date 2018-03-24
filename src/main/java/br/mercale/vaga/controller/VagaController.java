@@ -1,14 +1,21 @@
 package br.mercale.vaga.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -63,12 +70,13 @@ public class VagaController {
     		final BindingResult result,
 			Model model,
 			RedirectAttributes redirectAttributes) {
-    	
-        if(result.hasErrors()) {
+
+    	if(result.hasErrors()) {
         	ModelAndView mv = new ModelAndView("/vaga/form");
             mv.addObject("vaga", vaga);
             return mv;
         }
+       
         service.save(vaga);
         initObj();
         return findAll();
@@ -94,8 +102,17 @@ public class VagaController {
         vaga.setSetor(new Setor());
         vaga.setCargo(new Cargo());
         vaga.setRamo(new Ramo());
+        vaga.setDataCadastro(new Date());
         vaga.setUnidadeLotacao(new UnidadeLotacao());
 		return vaga;
 	}
 	
+	@InitBinder
+	public void initBinder(final WebDataBinder binder) {
+	    binder.initDirectFieldAccess();
+
+	    final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    dateFormat.setLenient(false);
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
 }
