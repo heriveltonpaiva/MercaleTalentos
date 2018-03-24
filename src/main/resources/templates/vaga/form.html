@@ -24,8 +24,15 @@
     <link href="../../css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 	<script src="../../js/tinymce/tinymce.min.js"></script>
-  	<script>tinymce.init({ selector:'textarea', language:'pt_BR' });</script>
-
+  	<script>tinymce.init({ selector:'textarea', language:'pt_BR', branding: false});
+  	</script>
+	<style>
+		/** Remove os Spinners **/
+		input::-webkit-inner-spin-button, input::-webkit-outer-spin-button{
+	   -webkit-appearance: none;
+	    margin: 0;
+		}
+	</style>
 </head>
 
 <body>
@@ -43,23 +50,34 @@
                             <div class="row">
 	
                                 <div class="col-lg-12">
+                                	<form role="formBtn" th:action="@{../vaga/list}" method="GET">
+                                    <div class="col-lg-12" >
+					                      <button type="button" class="btn btn-outline btn-default btn-lg" disabled="true"><i class="fa fa-plus"></i> Cadastrar Vagas</button>
+					                      <button type="submit" class="btn btn-outline btn-primary btn-lg"><i class="fa fa-list"></i>Listar Vagas</button>
+					                  </div>
+					                </form>  
                                     <form role="form" th:action="@{../vaga/save}" th:object="${vaga}" method="POST">
-                                   	 <div class="alert alert-danger">
-	                                    <ul>
-										   <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
-										</ul>
-									 </div>
-									 
-					                  <div class="col-lg-12">
-					                      <button type="submit" class="btn btn-outline btn-default btn-lg" disabled="true"><i class="fa fa-plus"></i> Cadastrar Vagas</button>
-					                      <button type="reset" class="btn btn-outline btn-primary btn-lg"><i class="fa fa-list"></i> Listar Vagas</button>
+					                  <div class="col-lg-12" id="panelMensagens">
+						                  <div class="panel panel-primary alert alert-danger" th:if="${#fields.hasErrors('*')}" style="margin-bottom:10px; margin-top:20px;">
+		                                    <b>Validação</b>
+		                                    <a href="#" title="Fechar Mensagem" class="fa fa-times" style="float:right;color:red;" 
+		                                    onclick="document.getElementById('panelMensagens').style.display='none';"></a>
+		                                    <ul>
+											   <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+											</ul>
+										 </div>
+										<div class="panel-primary alert alert-info" th:if="${not #fields.hasErrors('*') && msgSucesso != null}" style="margin-bottom:5px; margin-top:10px;">
+											<a href="#" title="Fechar Mensagem" class="fa fa-times" style="float:right;color:black;" 
+		                                    onclick="document.getElementById('panelMensagens').style.display='none';"></a>
+											<b th:text="${msgSucesso}"></b>
+										</div>
 					                  </div>
                                         <div class="col-lg-2" style="margin-bottom:5px; margin-top:10px;">
                                             <label>Código<i class="glyphicon-asterisk"></i></label>
                                             <input class="form-control" th:field="*{codigo}">
                                         </div>
                                         <div class="col-lg-4" style="margin-bottom:5px; margin-top:10px;">
-                                        <label>Unidade de Lotação</label>
+                                        <label>Unidade de Lotação<i class="glyphicon-asterisk"></i></label>
 					                    <select th:field="*{unidadeLotacao.id}" class="form-control">
 					                         <option value="0"> -- SELECIONE -- </option>
 					                         <option th:each="unidade : ${unidades}"
@@ -68,31 +86,26 @@
 					                    </select>
 							 			</div>
                                         <div class="col-lg-2" style="margin-bottom:5px; margin-top:10px;">
-                                            <label>Salário R$</label>
+                                            <label>Salário R$<i class="glyphicon-asterisk"></i></label>
                                             <input type="number" class="form-control" th:field="*{salario}">
                                         </div>
                                         
                                         <div class="col-lg-2" style="margin-bottom:5px; margin-top:10px;">
-                                            <label>Carga Horária</label>
+                                            <label>Carga Horária<i class="glyphicon-asterisk"></i></label>
                                             <input type="number" class="form-control" th:field="*{cargaHoraria}">
                                         </div>
                                         <div class="col-lg-2" style="margin-bottom:5px; margin-top:10px;">
                                             <label>Vaga Aberta?</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="radioVaga" value="true" checked>Sim
-                                                </label>
-                                                 <label>
-                                                    <input type="radio" name="radioVaga" value="false">Não
-                                                </label>
-                                            </div>
+                                            <label style="margin-top: 5px;">
+                                            	<input style="margin:5px;" type="radio" th:field="*{vagaAberta}" th:each="val : ${radioList}" th:value="${val}" th:utext="${val}?SIM:NÃO" />
+                                            </label>
                                         </div>
                                         <div class="col-lg-12" style="margin-bottom:10px;">
-                                            <label>Descrição</label>
+                                            <label>Descrição<i class="glyphicon-asterisk"></i></label>
                                             <textarea class="form-control" th:field="*{descricao}"></textarea>
                                         </div>
                                         <div class="col-lg-4">
-                                        <label>Ramo</label>
+                                        <label>Ramo<i class="glyphicon-asterisk"></i></label>
 					                    <select th:field="*{ramo.id}" class="form-control">
 					                         <option value="0"> -- SELECIONE -- </option>
 					                         <option th:each="ramo : ${ramos}"
@@ -101,7 +114,7 @@
 					                    </select>
 							 			</div>
 							 			<div class="col-lg-4">
-                                        <label>Setor</label>
+                                        <label>Setor<i class="glyphicon-asterisk"></i></label>
 					                    <select th:field="*{setor.id}" class="form-control">
 					                         <option value="0"> -- SELECIONE -- </option>
 					                         <option th:each="setor : ${setores}"
@@ -110,7 +123,7 @@
 					                    </select>
 							 			</div>
 									   <div class="col-lg-4">
-                                        <label>Cargo</label>
+                                        <label>Cargo<i class="glyphicon-asterisk"></i></label>
 					                    <select th:field="*{cargo.id}" class="form-control">
 					                         <option value="0"> -- SELECIONE -- </option>
 					                         <option th:each="cargo : ${cargos}"
@@ -120,7 +133,7 @@
 							 			</div>
 							 			
 							 			<div class="col-lg-6" style="margin-bottom:10px; margin-top:5px;">
-                                        <label>Etapa</label>
+                                        <label>Etapa<i class="glyphicon-asterisk"></i></label>
 					                    <select th:field="*{etapa.id}" class="form-control">
 					                         <option value="0"> -- SELECIONE -- </option>
 					                         <option th:each="etapa : ${etapas}"
@@ -130,11 +143,11 @@
 							 			</div>
                                         
                                         <div class="col-lg-3" style="margin-bottom:10px; margin-top:5px;">
-                                            <label>Data de Abertura</label>
+                                            <label>Data de Abertura<i class="glyphicon-asterisk"></i></label>
                                             <input type="date" class="form-control" th:field="*{dataInicio}">
                                         </div>
                                         <div class="col-lg-3" style="margin-bottom:10px; margin-top:5px;">
-                                            <label>Data de Encerramento</label>
+                                            <label>Data de Encerramento<i class="glyphicon-asterisk"></i></label>
                                             <input type="date" class="form-control" th:field="*{dataFinal}">
                                         </div>
                                         

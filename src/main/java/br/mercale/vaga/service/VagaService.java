@@ -25,8 +25,6 @@ public class VagaService {
 	     
 	    public Vaga save(Vaga vaga) {
 	    	vaga.setDataCadastro(new Date());
-	    	vaga.setDataInicio(new Date());
-	    	vaga.setDataFinal(new Date());
 	        return repository.save(vaga);
 	    }
 	     

@@ -1,6 +1,5 @@
 package br.mercale.dominio;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,9 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -26,28 +23,22 @@ public class Vaga {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@NotBlank(message="Código: campo obrigatório não informado.")
 	private String codigo;
 	
-	@NotBlank(message="Descrição: campo obrigatório não informado.")
 	private String descricao;
 	
-	@NotNull(message="Salário: campo obrigatório não informado.")
 	private double salario;
 	
-	@NotNull(message="Carga Horária: campo obrigatório não informado.")
 	@Column(name = "carga_horaria")
 	private int cargaHoraria;
 	
 	private boolean vagaAberta;
 	
-	@NotNull(message="Data de Abertura: campo obrigatório não informado.")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_inicio")
 	private Date dataInicio;
 	
-	@NotNull(message="Data de Encerramento: campo obrigatório não informado.")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_final")
@@ -60,7 +51,6 @@ public class Vaga {
 	@Column(name = "data_cadastro")
 	private Date dataCadastro;
 
-	@NotNull(message="Cargo: campo obrigatório não informado.")
 	@ManyToOne
 	@JoinColumn(name = "id_cargo")
 	private Cargo cargo;
@@ -82,7 +72,6 @@ public class Vaga {
 	private UnidadeLotacao unidadeLotacao;
 	
 	public Vaga() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {

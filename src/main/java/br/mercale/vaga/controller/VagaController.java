@@ -1,15 +1,15 @@
 package br.mercale.vaga.controller;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
-import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,8 +34,10 @@ import br.mercale.vaga.repository.RamoRepository;
 import br.mercale.vaga.repository.SetorRepository;
 import br.mercale.vaga.repository.UnidadeLotacaoRepository;
 import br.mercale.vaga.service.VagaService;
+import br.mercale.validator.VagaValidator;
 
 @Controller
+@RequestMapping("/vaga")
 public class VagaController {
 	
 	@Autowired
@@ -50,49 +52,40 @@ public class VagaController {
 	private SetorRepository setorDao;
 	@Autowired
 	private UnidadeLotacaoRepository unidadeDao;
-
-	@GetMapping("/vaga")
+	
+	@GetMapping("/")
 	public String visualizarVagas() {
-		return "vaga/index";
+		return "index";
 	}
 
-	@GetMapping("/vaga/list")
+	@GetMapping("/list")
     public ModelAndView findAll() {
         ModelAndView mv = new ModelAndView("/vaga/list");
         mv.addObject("vagas", service.findAll());
         return mv;
     }
 	
-    @RequestMapping(value="/vaga/save", method= RequestMethod.POST)
-    public ModelAndView save(
-    		@ModelAttribute 
-    		@Valid Vaga vaga, 
-    		final BindingResult result,
-			Model model,
-			RedirectAttributes redirectAttributes) {
-
+    @RequestMapping(value="/save", method= RequestMethod.POST)
+    public ModelAndView save(@ModelAttribute @Valid Vaga vaga, final BindingResult result,
+			Model model, RedirectAttributes redirectAttributes) {
+    	
     	if(result.hasErrors()) {
-        	ModelAndView mv = new ModelAndView("/vaga/form");
+    		ModelAndView mv = new ModelAndView("/vaga/form");
+        	carregarComboBoxes(model);
             mv.addObject("vaga", vaga);
             return mv;
-        }
-       
+        } 
         service.save(vaga);
+        redirectAttributes.addFlashAttribute("msgSucesso", "Operação realizada com sucesso!");
         initObj();
-        return findAll();
+        return new ModelAndView("redirect:/vaga/form");
     }
     
-    @GetMapping("/vaga/form")
+    @GetMapping("/form")
     public ModelAndView iniciarCadastro(Model model) {
-        model.addAttribute("cargos", (List<Cargo>) cargoDao.findAll());
-        model.addAttribute("setores", (List<Setor>) setorDao.findAll());
-        model.addAttribute("ramos", (List<Ramo>) ramoDao.findAll());
-        model.addAttribute("etapas", (List<Etapa>) etapaDao.findAll());
-        model.addAttribute("unidades", (List<UnidadeLotacao>) unidadeDao.findAll());
-        
+        carregarComboBoxes(model);
         Vaga vaga = initObj();
         model.addAttribute("vaga", vaga);
-
         return new ModelAndView("/vaga/form");
     }
 
@@ -110,9 +103,22 @@ public class VagaController {
 	@InitBinder
 	public void initBinder(final WebDataBinder binder) {
 	    binder.initDirectFieldAccess();
-
 	    final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	    dateFormat.setLenient(false);
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	    binder.setValidator(new VagaValidator());
 	}
+	
+	private void carregarComboBoxes(Model model) {
+		model.addAttribute("cargos", (List<Cargo>) cargoDao.findAll());
+        model.addAttribute("setores", (List<Setor>) setorDao.findAll());
+        model.addAttribute("ramos", (List<Ramo>) ramoDao.findAll());
+        model.addAttribute("etapas", (List<Etapa>) etapaDao.findAll());
+        model.addAttribute("unidades", (List<UnidadeLotacao>) unidadeDao.findAll());
+        List<Boolean> opcoes = new ArrayList<Boolean>();
+        opcoes.add(true);
+        opcoes.add(false);
+        model.addAttribute("radioList", opcoes);
+	}
+	
 }
