@@ -51,6 +51,11 @@
 		  <groupId>org.postgresql</groupId>
 		  <artifactId>postgresql</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.5.1</version>
+		</dependency>
         <!-- bootstrap and jquery -->
         <dependency>
             <groupId>org.webjars</groupId>

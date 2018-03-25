@@ -1,5 +1,6 @@
 package br.mercale.dominio;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -188,6 +189,9 @@ public class Vaga {
 	}
 	public void setUnidadeLotacao(UnidadeLotacao unidadeLotacao) {
 		this.unidadeLotacao = unidadeLotacao;
+	}
+	public String getDataEncerramento(){
+		return new SimpleDateFormat("dd/MM/yyyy").format(dataFinal);
 	}
 	
 }

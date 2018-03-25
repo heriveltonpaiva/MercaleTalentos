@@ -1,151 +1,114 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{fragments/layout}">
-
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{fragments/layout}">
 <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<title>Mercale Talentos - Cadastro de Vagas</title>
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+<!-- Bootstrap Core CSS -->
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+<!-- MetisMenu CSS -->
+<link href="../../css/metisMenu.min.css" rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="../../css/metisMenu.min.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="../../css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="../../css/dataTables.responsive.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="../../css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="../../css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<!-- Custom Fonts -->
+<link href="../../css/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
-    <div id="wrapper" layout:fragment="content" th:remove="tag">
-        <div id="page-wrapper" style="margin-bottom:50px; width:100%; margin-left:0px;">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Vagas</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Vagas 
-                        </div>
-                        
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th>Código</th>
-                                        <th>Descrição</th>
-                                        <th>Cargo</th>
-                                        <th>Setor</th>
-                                        <th>Salário</th>
-                                        <th>Carga Horária</th>
-                                        <th>Vaga Aberta?</th>
-                                        <th>Data Início</th>
-                                        <th>Data Final</th>
-                                        <th>Observações</th>
-                                        <th>Data de Cadastro</th>
-                                        <th colspan="2"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="odd gradeX" th:each="vaga : ${vagas}">
-                                        <td th:text="${vaga.codigo}"></td>
-                                        <td th:text="${vaga.descricao}"></td>
-                                        <td th:text="${vaga.id}"></td>
-                                        <td th:text="${vaga.id}"></td>
-                                        <td th:text="${vaga.salario}"></td>
-                                        <td th:text="${vaga.cargaHoraria}"></td>
-                                        <td th:text="${vaga.vagaAberta}"></td>
-                                        <td th:text="${vaga.dataInicio}"></td>
-                                        <td th:text="${vaga.dataFinal}"></td>
-                                        <td th:text="${vaga.observacao}"></td>
-                                        <td th:text="${vaga.dataCadastro}"></td>
-                                        <td>
-			                                <div class="btn-group pull-right">
-			                                    <a class="btn btn-sm btn-primary" th:href="@{/edit/{id}(id=${vaga.id})}" >Editar</a>
-			                                    <a class="delete btn btn-sm btn-danger" th:href="@{/delete/{id}(id=${vaga.id})}">Excluir</a>
-			                               </div>
-			                            </td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-         
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /#page-wrapper -->
 
-    </div>
-    <!-- /#wrapper -->
+	<div id="wrapper" layout:fragment="content" th:remove="tag">
+		<div id="page-wrapper"
+			style="margin-bottom: 50px; margin-top: 0px; width: 100%; margin-left: 0px;">
+			<!-- /.row -->
+			<div class="row">
+					<div class="panel panel-primary" style="margin-top: 10px;">
+						
+						<div class="panel-heading">
+							<b><center>Vagas Abertas</center></b>
+						</div>
+						<div class="panel-body" style="margin-top:-15px;">
+							<div class="row">
+								<div class="col-lg-14" style="margin:1px;">
+									<form role="form" th:action="@{../vaga/list}" th:object="${vaga}" method="GET">
+									<div class="panel panel-info " style="text-align:center;margin-top:0px;">
+										<div class="panel-heading" style="color:black;">
+											<i class="fa fa-search" style="color:purple;"></i><b> :Visualizar Vaga </b>
+											<i class="fa fa-pencil" style="color:green;"></i><b> :Editar Vaga </b>
+											<i class="fa fa-trash-o" style="color:red;"></i><b> :Excluir Vaga </b>
+										</div>
+									</div>
+									 <table width="100%" class="table table-striped table-hover" id="dataTables-example">
+		                                <thead>
+		                                    <tr>
+		                                        <th width="5%">Código</th>
+		                                        <th>Ramo</th>
+		                                        <th width="15%">Cargo</th>
+		                                        <th>Setor</th>
+		                                        <th>Unidade de Lotação</th>
+		                                        <th width="10%">Encerramento</th>
+		                                        <th width="13%;" colspan="2" style="text-align:center;">Ações</th>
+		                                    </tr>
+		                                </thead>
+		                                <tbody>
+		                                    <tr class="odd gradeX" th:each="vaga : ${vagas}">
+		                                        <td><p th:utext="${vaga.codigo}"></td>
+		                                        <td><p th:utext="${vaga.ramo.descricao}"></p></td>
+		                                        <td><p th:utext="${vaga.cargo.descricao}"></p></td>
+		                                        <td><p th:utext="${vaga.setor.descricao}"></p></td>
+		                                        <td><p th:utext="${vaga.unidadeLotacao}"></p></td>
+		                                        <td><p th:utext="${vaga.dataEncerramento}"></p></td>
+		                                        <td>
+												<div>
+													<a title="Visualizar Vaga" class="btn btn-default" style="margin:0px;" th:href="@{/edit/{id}(id=${vaga.id})}" ><i style="color:purple;" class="fa fa-search"></i></a>
+													<a title="Editar Vaga" class="btn btn-default" style="margin:0px;" th:href="@{/edit/{id}(id=${vaga.id})}" ><i style="color:green;" class="fa fa-pencil"></i></a>
+													<a title="Excluir Vaga" class="btn btn-default" style="margin:0px;" th:href="@{/delete/{id}(id=${vaga.id})}"><i style="color:red;" class="fa fa-trash-o"></i></a>
+											   </div>
+												</td>
+		                                    </tr>
+		                                </tbody>
+		                            </table>
+									</form>
+								</div>
+							</div>
+							<!-- /.col-lg-6 (nested) -->
+						</div>
+						<!-- /.row (nested) -->
+					</div>
+					<!-- /.panel-body -->
+				<!-- /.panel -->
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
 
-    <!-- jQuery -->
-    <script src="../../js/jquery.min.js"></script>
+	</div>
+	<!-- /#wrapper -->
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../../js/bootstrap.min.js"></script>
+	<!-- jQuery -->
+	<script src="../../js/jquery.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../../js/metisMenu.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../../js/bootstrap.min.js"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="../../js/jquery.dataTables.min.js"></script>
-    <script src="../../js/dataTables.bootstrap.min.js"></script>
-    <script src="../../js/dataTables.responsive.js"></script>
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../../js/metisMenu.min.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="../../js/sb-admin-2.js"></script>
-
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
-    </script>
+	<!-- Custom Theme JavaScript -->
+	<script src="../../js/sb-admin-2.js"></script>
 
 </body>
 
