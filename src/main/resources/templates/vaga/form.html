@@ -50,13 +50,13 @@
                             <div class="row">
 	
                                 <div class="col-lg-12">
-                                	<form role="formBtn" th:action="@{../vaga/list}" method="GET">
+                                	<form role="formBtn" th:action="@{/vaga/list}" method="GET">
                                     <div class="col-lg-12" >
 					                      <button type="button" class="btn btn-outline btn-default btn-lg" disabled="true"><i class="fa fa-plus"></i> Cadastrar Vagas</button>
 					                      <button type="submit" class="btn btn-outline btn-primary btn-lg"><i class="fa fa-list"></i>Listar Vagas</button>
 					                  </div>
 					                </form>  
-                                    <form role="form" th:action="@{../vaga/save}" th:object="${vaga}" method="POST">
+                                    <form role="form" th:action="@{/vaga/form}" th:object="${vaga}" method="POST">
 					                  <div class="col-lg-12" id="panelMensagens">
 						                  <div class="panel panel-primary alert alert-danger" th:if="${#fields.hasErrors('*')}" style="margin-bottom:10px; margin-top:20px;">
 		                                    <b>Validação</b>
@@ -72,6 +72,7 @@
 											<b th:text="${msgSucesso}"></b>
 										</div>
 					                  </div>
+					                  	<input type="hidden" th:value="${vaga.id}" name="id" />
                                         <div class="col-lg-2" style="margin-bottom:5px; margin-top:10px;">
                                             <label>Código<i class="glyphicon-asterisk"></i></label>
                                             <input class="form-control" th:field="*{codigo}">

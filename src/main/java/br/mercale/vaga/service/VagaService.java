@@ -18,17 +18,17 @@ public class VagaService {
 	 	public List<Vaga> findAll() {
 	        return (List<Vaga>) repository.findAll();
 	    }
-	     
-	    public Vaga findOne(Long id) {
-	        return repository.findOne(id);
-	    }
-	     
+	 	
+	 	public Vaga findById(int id) {
+	        return repository.findByPrimaryKey(id);
+	    } 
+	 	
 	    public Vaga save(Vaga vaga) {
 	    	vaga.setDataCadastro(new Date());
 	        return repository.save(vaga);
 	    }
 	     
-	    public void delete(Long id) {
-	        repository.delete(id);
+	    public void delete(Vaga vaga) {
+	        repository.delete(vaga);
 	    }
 }

@@ -27,21 +27,24 @@
 </head>
 
 <body>
-
+<form role="form" th:action="@{../vaga/list}" th:object="${vaga}" method="GET">
 	<div id="wrapper" layout:fragment="content" th:remove="tag">
 		<div id="page-wrapper"
 			style="margin-bottom: 50px; margin-top: 0px; width: 100%; margin-left: 0px;">
 			<!-- /.row -->
 			<div class="row">
+					<div id="panelMensagens" class="panel-primary alert alert-info" th:if="${msgSucesso != null}" style="margin-bottom:5px; margin-top:10px;">
+						<a href="#" title="Fechar Mensagem" class="fa fa-times" style="float:right;color:black;" 
+                                 onclick="document.getElementById('panelMensagens').style.display='none';"></a>
+						<b th:text="${msgSucesso}"></b>
+					</div>
 					<div class="panel panel-primary" style="margin-top: 10px;">
-						
 						<div class="panel-heading">
 							<b><center>Vagas Abertas</center></b>
 						</div>
 						<div class="panel-body" style="margin-top:-15px;">
 							<div class="row">
 								<div class="col-lg-14" style="margin:1px;">
-									<form role="form" th:action="@{../vaga/list}" th:object="${vaga}" method="GET">
 									<div class="panel panel-info " style="text-align:center;margin-top:0px;">
 										<div class="panel-heading" style="color:black;">
 											<i class="fa fa-search" style="color:purple;"></i><b> :Visualizar Vaga </b>
@@ -72,14 +75,13 @@
 		                                        <td>
 												<div>
 													<a title="Visualizar Vaga" class="btn btn-default" style="margin:0px;" th:href="@{/edit/{id}(id=${vaga.id})}" ><i style="color:purple;" class="fa fa-search"></i></a>
-													<a title="Editar Vaga" class="btn btn-default" style="margin:0px;" th:href="@{/edit/{id}(id=${vaga.id})}" ><i style="color:green;" class="fa fa-pencil"></i></a>
-													<a title="Excluir Vaga" class="btn btn-default" style="margin:0px;" th:href="@{/delete/{id}(id=${vaga.id})}"><i style="color:red;" class="fa fa-trash-o"></i></a>
+													<a title="Editar Vaga" class="btn btn-default" style="margin:0px;" th:href="@{editar/{id}(id=${vaga.id})}" ><i style="color:green;" class="fa fa-pencil"></i></a>
+													<a title="Excluir Vaga" class="btn btn-default" style="margin:0px;" th:href="@{/vaga/delete/{id}(id=${vaga.id})}"><i style="color:red;" class="fa fa-trash-o"></i></a>
 											   </div>
 												</td>
 		                                    </tr>
 		                                </tbody>
 		                            </table>
-									</form>
 								</div>
 							</div>
 							<!-- /.col-lg-6 (nested) -->
@@ -97,7 +99,7 @@
 
 	</div>
 	<!-- /#wrapper -->
-
+</form>
 	<!-- jQuery -->
 	<script src="../../js/jquery.min.js"></script>
 
