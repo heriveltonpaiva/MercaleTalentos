@@ -27,38 +27,108 @@
 </head>
 
 <body>
-<form role="form" th:action="@{../vaga/list}" th:object="${vaga}" method="GET">
 	<div id="wrapper" layout:fragment="content" th:remove="tag">
-		<div id="page-wrapper"
-			style="margin-bottom: 50px; margin-top: 0px; width: 100%; margin-left: 0px;">
+		<div id="page-wrapper" style="margin-bottom: 50px; margin-top: 0px; width: 100%; margin-left: 0px;">
 			<!-- /.row -->
 			<div class="row">
-					<div id="panelMensagens" class="panel-primary alert alert-info" th:if="${msgSucesso != null}" style="margin-bottom:5px; margin-top:10px;">
-						<a href="#" title="Fechar Mensagem" class="fa fa-times" style="float:right;color:black;" 
-                                 onclick="document.getElementById('panelMensagens').style.display='none';"></a>
-						<b th:text="${msgSucesso}"></b>
-					</div>
-					<div class="panel panel-primary" style="margin-top: 10px;">
-						<div class="panel-heading">
-							<b><center>Vagas Abertas</center></b>
-						</div>
-						<div class="panel-body" style="margin-top:-15px;">
-							<div class="row">
-								<div class="col-lg-14" style="margin:1px;">
-									<div class="panel panel-info " style="text-align:center;margin-top:0px;">
+					<div class="panel panel-info" style="margin-top:10px;">
+                        <div class="panel-heading">
+                            <b>Vagas</b>
+                        </div>
+                        <div class="panel-body">
+                     <div class="row">
+                            	<div class="col-lg-12">
+									<form role="formBtn" th:action="@{/vaga/form}" method="GET">
+				                      <button type="button" class="btn btn-outline btn-primary btn-lg" disabled="true"><i class="fa fa-list"></i> Listar Vagas</button>
+				                      <button type="submit" class="btn btn-outline btn-primary btn-lg"><i class="fa fa-plus"></i>Cadastrar Vaga</button>
+			                   		</form>
+                            	</div>
+                        <form role="form" th:action="@{../vaga/list}" th:object="${vaga}" method="GET">
+                            	<div class="col-lg-12" id="panelMensagem">
+									<div id="panelMensagens" class="panel-primary alert alert-info" th:if="${msgSucesso != null}" style="margin-bottom:5px; margin-top:10px;">
+										<a href="#" title="Fechar Mensagem" class="fa fa-times" style="float:right;color:black;" 
+				                                 onclick="document.getElementById('panelMensagens').style.display='none';"></a>
+										<b th:text="${msgSucesso}"></b>
+									</div>
+                            	</div>
+                            	<div class="col-lg-10" id="panelFiltros" style="width:80%; margin-left:10%; margin-top:2%; margin-bottom:2%;">
+									<div class="panel panel-body panel-info">
+										<div class="panel-heading" style="text-align:center;">
+											<b>FILTROS</b>
+										</div>
+										<div class="col-lg-10" style="margin-bottom:5px; margin-top:10px; width: 100%">
+                                            <label>Descrição</label>
+                                            <textarea class="form-control" th:field="*{descricao}"></textarea>
+                                        </div>
+                                        <div class="col-lg-10"  style="margin-bottom:5px; margin-top:10px; width: 50%">
+                                        <label>Unidade de Lotação</label>
+					                    <select th:field="*{unidadeLotacao.id}" class="form-control">
+					                         <option value="0"> -- SELECIONE -- </option>
+					                         <option th:each="unidade : ${unidades}"
+					                            th:value="${unidade.id}"
+					                            th:utext="${unidade}"/>
+					                    </select>
+							 			</div>
+                                        <div class="col-lg-10" style="margin-bottom:5px; margin-top:10px; width: 50%" >
+                                        <label>Ramo</i></label>
+					                    <select th:field="*{ramo.id}" class="form-control">
+					                         <option value="0"> -- SELECIONE -- </option>
+					                         <option th:each="ramo : ${ramos}"
+					                            th:value="${ramo.id}"
+					                            th:utext="${ramo.descricao}"/>
+					                    </select>
+							 			</div>
+							 			<div class="col-lg-10" style="margin-bottom:5px; margin-top:10px; width: 50%">
+                                        <label>Setor</label>
+					                    <select th:field="*{setor.id}" class="form-control">
+					                         <option value="0"> -- SELECIONE -- </option>
+					                         <option th:each="setor : ${setores}"
+					                            th:value="${setor.id}"
+					                            th:utext="${setor.descricao}"/>
+					                    </select>
+							 			</div>
+									   <div class="col-lg-10" style="margin-bottom:5px; margin-top:10px; width: 50%">
+                                        <label>Cargo</label>
+					                    <select th:field="*{cargo.id}" class="form-control">
+					                         <option value="0"> -- SELECIONE -- </option>
+					                         <option th:each="cargo : ${cargos}"
+					                            th:value="${cargo.id}"
+					                            th:utext="${cargo.descricao}"/>
+					                    </select>
+							 			</div>
+										<div class="col-lg-6" style="margin-bottom:5px; margin-top:10px; width: 100%">
+                                            <label>Vaga Aberta?</label>
+                                            <label style="margin-top: 5px;">
+                                            	<input style="margin:5px;" type="radio" th:field="*{vagaAberta}" th:each="val : ${radioList}" th:value="${val}" th:utext="${val}?SIM:NÃO" />
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-10" style="margin-bottom:5px; margin-top:10px; text-align:center; width:100%">
+                                          <button type="button" class="btn btn-outline btn-primary btn-lg"><i class="fa fa-search"></i> Buscar</button>
+				                      	  <button type="reset" class="btn btn-outline btn-default btn-lg"><i class="fa fa-times"></i> Cancelar</button>
+				                      	</div>	
+									</div>	                            	
+                            	</div>
+                            	
+                            	<div class="col-lg-12" id="panelListagem">
+                            		<div class="panel panel-default " style="text-align:center;margin-top:0px;">
 										<div class="panel-heading" style="color:black;">
 											<i class="fa fa-search" style="color:purple;"></i><b> :Visualizar Vaga </b>
 											<i class="fa fa-pencil" style="color:green;"></i><b> :Editar Vaga </b>
 											<i class="fa fa-trash-o" style="color:red;"></i><b> :Excluir Vaga </b>
 										</div>
+		                            	<div class="panel panel-info">
+		                            		<div class="panel-heading">
+												<b style="text-align:center;">Vagas Abertas</b>
+											</div>
+										<div>	
 									</div>
-									 <table width="100%" class="table table-striped table-hover" id="dataTables-example">
+									<table width="100%" class="table table-striped table-hover" id="dataTables-example">
 		                                <thead>
 		                                    <tr>
 		                                        <th width="5%">Código</th>
 		                                        <th>Ramo</th>
 		                                        <th width="15%">Cargo</th>
-		                                        <th>Setor</th>
+		                                        <th >Setor</th>
 		                                        <th>Unidade de Lotação</th>
 		                                        <th width="10%">Encerramento</th>
 		                                        <th width="13%;" colspan="2" style="text-align:center;">Ações</th>
@@ -66,12 +136,12 @@
 		                                </thead>
 		                                <tbody>
 		                                    <tr class="odd gradeX" th:each="vaga : ${vagas}">
-		                                        <td><p th:utext="${vaga.codigo}"></td>
-		                                        <td><p th:utext="${vaga.ramo.descricao}"></p></td>
-		                                        <td><p th:utext="${vaga.cargo.descricao}"></p></td>
-		                                        <td><p th:utext="${vaga.setor.descricao}"></p></td>
-		                                        <td><p th:utext="${vaga.unidadeLotacao}"></p></td>
-		                                        <td><p th:utext="${vaga.dataEncerramento}"></p></td>
+		                                        <td style="text-align:left;"><p th:utext="${vaga.codigo}"></td>
+		                                        <td style="text-align:left;"><p th:utext="${vaga.ramo.descricao}"></p></td>
+		                                        <td style="text-align:left;"><p th:utext="${vaga.cargo.descricao}"></p></td>
+		                                        <td style="text-align:left;"><p th:utext="${vaga.setor.descricao}"></p></td>
+		                                        <td style="text-align:left;"><p th:utext="${vaga.unidadeLotacao}"></p></td>
+		                                        <td style="text-align:center;"><p th:utext="${vaga.dataEncerramento}"></p></td>
 		                                        <td>
 												<div>
 													<a title="Visualizar Vaga" class="btn btn-default" style="margin:0px;" th:href="@{/edit/{id}(id=${vaga.id})}" ><i style="color:purple;" class="fa fa-search"></i></a>
@@ -82,24 +152,18 @@
 		                                    </tr>
 		                                </tbody>
 		                            </table>
-								</div>
-							</div>
-							<!-- /.col-lg-6 (nested) -->
-						</div>
-						<!-- /.row (nested) -->
-					</div>
-					<!-- /.panel-body -->
-				<!-- /.panel -->
+                            	</div>
+                           	 </div>
+                         </div>
+                       </form>
+                   </div>    
+				</div>
 			</div>
-			<!-- /.col-lg-12 -->
 		</div>
-		<!-- /.row -->
 	</div>
-	<!-- /#page-wrapper -->
-
 	</div>
 	<!-- /#wrapper -->
-</form>
+
 	<!-- jQuery -->
 	<script src="../../js/jquery.min.js"></script>
 

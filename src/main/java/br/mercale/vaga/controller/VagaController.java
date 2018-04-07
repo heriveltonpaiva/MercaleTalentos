@@ -59,7 +59,10 @@ public class VagaController {
 	}
 
 	@GetMapping("/list")
-    public ModelAndView findAll() {
+    public ModelAndView findAll(Model model) {
+		Vaga vaga = initObj();
+        model.addAttribute("vaga", vaga);
+		carregarComboBoxes(model);
         ModelAndView mv = new ModelAndView("/vaga/list");
         mv.addObject("vagas", service.findAll());
         return mv;
