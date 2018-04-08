@@ -15,7 +15,11 @@ public class VagaService {
 	@Autowired
 	private VagaRepository repository;
 	
-	 	public List<Vaga> findAll() {
+		public List<Vaga> findByFiltros(Vaga vaga) {
+	        return repository.findByFiltros(vaga);
+	    }
+	
+		public List<Vaga> findAll() {
 	        return (List<Vaga>) repository.findAll();
 	    }
 	 	
@@ -30,5 +34,9 @@ public class VagaService {
 	     
 	    public void delete(Vaga vaga) {
 	        repository.delete(vaga);
+	    }
+	    
+	    public Long totalRegistros(){
+	    	return repository.count();
 	    }
 }

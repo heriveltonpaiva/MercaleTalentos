@@ -35,7 +35,7 @@ public class VagaValidator implements Validator{
 			 erros.reject("vaga.setor");
 		 if(vaga.getCargo().getId() == 0)
 			 erros.reject("vaga.cargo");
-		 if(vaga.getEtapa().getId() == 0)
+		 if(vaga.getEtapa()!= null && vaga.getEtapa().getId() == 0)
 			 erros.reject("vaga.etapa");
 		 
 		 ValidationUtils.rejectIfEmptyOrWhitespace(erros, "dataInicio", "vaga.dataInicio");

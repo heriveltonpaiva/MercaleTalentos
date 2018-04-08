@@ -64,7 +64,9 @@ public class VagaController {
         model.addAttribute("vaga", vaga);
 		carregarComboBoxes(model);
         ModelAndView mv = new ModelAndView("/vaga/list");
-        mv.addObject("vagas", service.findAll());
+        List<Vaga> vagas = service.findAll();
+        mv.addObject("vagas", vagas);
+        mv.addObject("total", "Vagas Encontrada ( "+vagas.size()+" )");
         return mv;
     }
 	
@@ -81,10 +83,25 @@ public class VagaController {
         service.save(vaga);
         initObj();
         ModelAndView mv = new ModelAndView("redirect:/vaga/list");
-        mv.addObject("vagas", service.findAll());
+        List<Vaga> vagas = service.findByFiltros(vaga);
+        mv.addObject("vagas", vagas);
+        mv.addObject("total", "Vagas Encontrada ( "+vagas.size()+" )");
         redirectAttributes.addFlashAttribute("msgSucesso", "Operação realizada com sucesso!");
         return mv;
     }
+    
+    @RequestMapping(value="/list", method= RequestMethod.POST)
+    public ModelAndView buscar(@ModelAttribute @Valid Vaga vaga, final BindingResult result,
+			Model model, RedirectAttributes redirectAttributes) {
+        ModelAndView mv = new ModelAndView("/vaga/list");
+        List<Vaga> vagas = service.findByFiltros(vaga);
+        mv.addObject("vagas", vagas);
+        mv.addObject("total", "Vagas Encontrada ( "+vagas.size()+" )");
+        carregarComboBoxes(model);
+        redirectAttributes.addFlashAttribute("msgSucesso", "Operação realizada com sucesso!");
+        return mv;
+    }
+    
     
     @GetMapping("/form")
     public ModelAndView iniciarCadastro(Model model) {

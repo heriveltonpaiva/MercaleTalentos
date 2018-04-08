@@ -24,6 +24,17 @@
 <link href="../../css/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 
+	<script type="text/javascript">
+	function limparForm(){
+		document.getElementById('descricao').value = '';
+		document.getElementById('unidadeLotacao.id').value = 0;
+		document.getElementById('setor.id').value = 0;
+		document.getElementById('cargo.id').value = 0;
+		document.getElementById('ramo.id').value = 0;
+		document.getElementById('vagaAberta2').checked = true;
+		document.getElementById('formulario').submit();
+	};
+	</script>
 </head>
 
 <body>
@@ -39,11 +50,11 @@
                      <div class="row">
                             	<div class="col-lg-12">
 									<form role="formBtn" th:action="@{/vaga/form}" method="GET">
-				                      <button type="button" class="btn btn-outline btn-primary btn-lg" disabled="true"><i class="fa fa-list"></i> Listar Vagas</button>
+				                      <button type="button" class="btn btn-outline btn-default btn-lg" disabled="true"><i class="fa fa-list"></i> Listar Vagas</button>
 				                      <button type="submit" class="btn btn-outline btn-primary btn-lg"><i class="fa fa-plus"></i>Cadastrar Vaga</button>
 			                   		</form>
                             	</div>
-                        <form role="form" th:action="@{../vaga/list}" th:object="${vaga}" method="GET">
+                        <form role="form" th:action="@{/vaga/list}" th:object="${vaga}" method="POST" id="formulario">
                             	<div class="col-lg-12" id="panelMensagem">
 									<div id="panelMensagens" class="panel-primary alert alert-info" th:if="${msgSucesso != null}" style="margin-bottom:5px; margin-top:10px;">
 										<a href="#" title="Fechar Mensagem" class="fa fa-times" style="float:right;color:black;" 
@@ -58,7 +69,7 @@
 										</div>
 										<div class="col-lg-10" style="margin-bottom:5px; margin-top:10px; width: 100%">
                                             <label>Descrição</label>
-                                            <textarea class="form-control" th:field="*{descricao}"></textarea>
+                                            <input type="text" class="form-control" th:field="*{descricao}"></input>
                                         </div>
                                         <div class="col-lg-10"  style="margin-bottom:5px; margin-top:10px; width: 50%">
                                         <label>Unidade de Lotação</label>
@@ -103,8 +114,8 @@
                                             </label>
                                         </div>
                                         <div class="col-lg-10" style="margin-bottom:5px; margin-top:10px; text-align:center; width:100%">
-                                          <button type="button" class="btn btn-outline btn-primary btn-lg"><i class="fa fa-search"></i> Buscar</button>
-				                      	  <button type="reset" class="btn btn-outline btn-default btn-lg"><i class="fa fa-times"></i> Cancelar</button>
+                                          <button type="submit" class="btn btn-outline btn-primary btn-lg"><i class="fa fa-search"></i> Buscar</button>
+				                      	  <button type="button" onclick="limparForm();" class="btn btn-outline btn-default btn-lg"><i class="fa fa-times"></i> Cancelar</button>
 				                      	</div>	
 									</div>	                            	
                             	</div>
@@ -118,7 +129,7 @@
 										</div>
 		                            	<div class="panel panel-info">
 		                            		<div class="panel-heading">
-												<b style="text-align:center;">Vagas Abertas</b>
+												<b style="text-align:center;"><span th:utext="${total}"></b>
 											</div>
 										<div>	
 									</div>
@@ -135,6 +146,7 @@
 		                                    </tr>
 		                                </thead>
 		                                <tbody>
+		                                	<tr th:if="${vagas.empty}"><td colspan="7" style="color:red;">Não foram encontrados registros.</td></tr>
 		                                    <tr class="odd gradeX" th:each="vaga : ${vagas}">
 		                                        <td style="text-align:left;"><p th:utext="${vaga.codigo}"></td>
 		                                        <td style="text-align:left;"><p th:utext="${vaga.ramo.descricao}"></p></td>
