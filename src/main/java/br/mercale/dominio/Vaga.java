@@ -197,5 +197,12 @@ public class Vaga {
 	public String getDataEncerramento(){
 		return new SimpleDateFormat("dd/MM/yyyy").format(dataFinal);
 	}
+
+	public String getDataInicial(){
+		return new SimpleDateFormat("dd/MM/yyyy").format(dataInicio);
+	}
+	public String getDataCadastroVaga(){
+		return new SimpleDateFormat("dd/MM/yyyy").format(dataCadastro);
+	}
 	
 }

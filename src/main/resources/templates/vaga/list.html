@@ -34,7 +34,7 @@
 		document.getElementById('vagaAberta2').checked = true;
 		document.getElementById('formulario').submit();
 	};
-	</script>
+	</script>	
 </head>
 
 <body>
@@ -156,7 +156,7 @@
 		                                        <td style="text-align:center;"><p th:utext="${vaga.dataEncerramento}"></p></td>
 		                                        <td>
 												<div>
-													<a title="Visualizar Vaga" class="btn btn-default" style="margin:0px;" th:href="@{/edit/{id}(id=${vaga.id})}" ><i style="color:purple;" class="fa fa-search"></i></a>
+													<a title="Visualizar Vaga" class="btn btn-default" style="margin:0px;" th:onclick="'javascript:viewVaga(\'' + ${vaga.id} +'\');'" ><i style="color:purple;" class="fa fa-search"></i></a>
 													<a title="Editar Vaga" class="btn btn-default" style="margin:0px;" th:href="@{editar/{id}(id=${vaga.id})}" ><i style="color:green;" class="fa fa-pencil"></i></a>
 													<a title="Excluir Vaga" class="btn btn-default" style="margin:0px;" th:href="@{/vaga/delete/{id}(id=${vaga.id})}"><i style="color:red;" class="fa fa-trash-o"></i></a>
 											   </div>
@@ -168,12 +168,112 @@
                            	 </div>
                          </div>
                        </form>
+                       <!-- Modal de Visualização -->
+						  <div  th:id="viewVaga" class="modal bd-example-modal-lg" th:fragment="view" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+						   <div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div id="panelListagem">
+									    <div class="panel panel-default " style="text-align:center;margin:0px;">
+									    <div class="panel panel-primary" style="margin:0px;">
+						                    <div class="panel-heading">
+												<b style="text-align:center;font-weight:bold;">Detalhes da Vaga</b>
+												<a href="#" data-dismiss="modal" title="Fechar" class="fa fa-times" style="float:right;color:white;"></a>
+											</div>
+										<div>	
+									    <table width="100%" class="table" id="dataTables-example" style="margin:0px; border:0px;">
+						                        <tr>
+						                            <th class="info" width="15%" style="text-align:right;">Código:</th>
+						                            <td width="35%"><p id="codigoVaga" style="text-align:left;"></p></td>
+						                            <th class="info" width="15%" style="text-align:right;">Vaga Aberta:</th>
+						                            <td><p id="vagaAberta" style="text-align:left;"></p></td>
+						                        </tr>
+						                        <tr>
+						                        	<th class="info" style="text-align:right;">Cargo:</th>
+						                            <td><p id="cargo" style="text-align:left;"></p></td>
+						                            <th class="info" style="text-align:right;">Ramo:</th>
+						                            <td><p id="ramo" style="text-align:left;"></p></td>
+						                            
+						                        </tr>
+						                        <tr>
+						                            <th class="info" style="text-align:right;">Setor:</th>
+						                            <td><p id="setor" style="text-align:left;"></p></td>
+						                            <th class="info" style="text-align:right;">Unidade de Lotação:</th>
+						                            <td><p id="unidade" style="text-align:left;"></p></td>
+						                            
+						                        </tr>
+						                        <tr>
+						                            <th class="info" width="15%" style="text-align:right;">Etapa:</th>
+						                            <td><p id="etapa" style="text-align:left;"></p></td>
+						                            <th class="info" width="15%" style="text-align:right;">Carga Horária:</th>
+						                            <td><p id="cargaHoraria" style="text-align:left;"></p></td>
+						                        </tr>
+						                        <tr>
+						                        	<th class="info" width="15%" style="text-align:right;">Salário R$:</th>
+						                            <td><p id="salario" style="text-align:left;"></p></td>
+						                            <th class="info" width="15%" style="text-align:right;">Data de Cadastro:</th>
+						                            <td><p id="dataCadastro" style="text-align:left;"></p></td>
+						                        </tr>
+						                        <tr>
+						                            <th class="info" style="text-align:right;">Abertura:</th>
+						                            <td><p id="dataAbertura" style="text-align:left;"></p></td>
+						                            <th class="info" width="15%" style="text-align:right;">Encerramento:</th>
+						                            <td><p id="dataEncerramento" style="text-align:left;"></p></td>
+						                        </tr>
+						                        <tr class="info">
+						                            <th width="100%" colspan="4" style="text-align:center;">Decrição da Vaga</th>
+						                        </tr>
+						                        <tr>
+						                            <td colspan="4"><p id="descricaoVaga" style="text-align:left;"></p></td>
+						                        </tr>
+						                        <tr class="info">
+						                            <th width="100%" colspan="4" style="text-align:center;">Observações</th>
+						                        </tr>
+						                        <tr>
+						                            <td colspan="4"><p id="observacaoVaga" style="text-align:left;"></p></td>
+						                        </tr>
+								        </table>
+									</div>
+									   <div class="modal-footer">
+						        		<button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+						       		 </div> 
+								</div>
+							</div> 
+						</div>
                    </div>    
 				</div>
+				  <!-- Fim do Modal de Visualização -->
 			</div>
 		</div>
 	</div>
 	</div>
+	<script>
+	function viewVaga(id){
+		console.log('chegou'+id);
+		$.ajax({
+			url:"/vaga/"+id,
+			success:function(response){
+			    console.log(response);
+	            $('#codigoVaga').html(response['codigo']);
+	            $('#vagaAberta').html(response['vagaAberta']==true?'SIM':'NÃO');
+	            $('#etapa').html(response['etapa'].descricao);
+	            $('#cargaHoraria').html(response['cargaHoraria']+'h');
+	            $('#salario').html(response['salario']);
+	            $('#ramo').html(response['ramo'].descricao);
+	            $('#cargo').html(response['cargo'].descricao);
+	            $('#setor').html(response['setor'].descricao);
+	            $('#unidade').html(response['unidadeLotacao'].descricao);
+	            $('#dataCadastro').html(response['dataCadastroVaga']);
+	            $('#dataAbertura').html(response['dataInicial']);
+	            $('#dataEncerramento').html(response['dataEncerramento']);
+	            $('#descricaoVaga').html(response['descricao']);
+	            $('#observacaoVaga').html(response['observacao']);
+	            $('#viewVaga').modal();
+	            $('#viewVaga').modal('show');
+	          
+	        }
+		});
+	}
+	</script>
 	<!-- /#wrapper -->
 
 	<!-- jQuery -->
